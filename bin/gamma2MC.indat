@@ -1,0 +1,20 @@
+output/gamma2MC_MGG.out    #1 Name of output file
+pp                 #2 Collider type : choices are {pp, ppbar}
+14000              #3 Collider COM energy in GeV
+cteq6m.LHpdf       #4 PDF file name : (such as cteq6m.LHpdf) 
+0                  #5 PDF member set: ("best fit" is 0) 
+GG                 #6 Process type : choices {HIGGS, GG, QQ}
+QQTOTAL            #7 QQ type : choices {QQTOTAL, QQONLY, QGONLY} 
+NLO                #8 Order of calculation : choices {LO, NLO, EASYNLO, HARDNLO}  
+standard           #9 Cut types: choices {none, standard, ptcut, hcut, frixione, noIsolation, jetveto, annulus, D0, userdefined}  
+2.5 25.0 40.0      #10 [ycut pt2 pt1] (remember pt2<pt1)
+0.4 15.0           #11 standard [Rcut Etcut], ptcut [Rcut Etcut Etjet], hcut [yhcut], frixione/D0 [Rcut epsilon], jetveto/annulus, [Rcut Etcut Rjet Etjet], userdefined [P1, P2, P3, P4]
+80.0 140.0	   #12 HIGGS [M_Higgs], else [M_gamgam(low) M_gamgam(high)]
+0.5 0.5 0.5        #13 Scale choices [chiR chiF chifr] 
+5 50000            #14 Grid variables [itmx ncallAdapt] 
+1000000            #15 [nevents] 
+-238		   #16 [seed] (must be <0)
+MGG                #17 Distribution type: choices {COSTHETASTAR, YSTAR, TANHYSTAR, YGG, PHIGG, QT, MGG, USERDEFINED}
+15 80.0 140.0      #18 [nbins hmin hmax] (Warning: LO produces events with QT=0 and PHIGG=PI.  Be sure that first or last bin includes these points.  For example, hmin=-1.0e-8 (<0) for QT distribution and hmax=3.1416 (>PI) for PHIGG distribution.)
+unscaled           #19 Choices {scaled, unscaled} If scaled, divide by sigma.
+

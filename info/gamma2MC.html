@@ -1,0 +1,137 @@
+<HTML>
+<HEAD>
+
+<TITLE>gamma2MC version 1.1.1</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FDF5E6">
+
+<CENTER>
+<H1><font color="green">gamma2MC version 1.1.1</font></H1>
+</CENTER>
+
+<HR>
+<H3>A program to compute the di-photon cross section at Next-to-Leading order 
+(NLO) in QCD at hadronic colliders.<BR>
+See Ref. [1] for details and results.
+</H3>
+<HR>
+
+<P><B>
+In this 
+program the di-photon cross section, p p(bar) --> gamma gamma X, can be 
+computed through three distinct subprocesses:</B><BR>
+<ol type="1">
+<li>
+  Through the Higgs resonance: <font color="red"><B>g g --> H X, followed by
+   H --> gamma gamma</B></font>.  The production cross section of the
+   Higgs boson is through gluon-gluon fusion (with all associated
+   channels at NLO) in the heavy top quark limit (top
+   quark mass dependence is included only in the LO prefactor).  The
+   branching ratio to gamma gamma is not included.  It
+   can be obtained elsewhere, such as from the program <B>HDECAY</B> [2].
+</li><BR>
+<li>
+Through the (formally NNLO) process <font color="red"><B>g g --> gamma gamma X</B></font>, which
+  occurs at one loop.  This box contribution is then treated
+  as the LO part of a NLO calculation, where only
+  gluon-gluon initial-states are considered.
+</li><BR>
+<li>
+Through <font color="red"><B>q qbar --> gamma gamma X </B></font>, as well as all associated
+ channels through NLO.  This process at NLO has a collinear
+ singularity when the photon and a final-state quark are
+ collinear.  This singularity has been MSbar-subtracted, so
+ that the calculation should be finite for any isolation cuts.
+ However, no fragmentation processes are included, so only a
+ calculation with an IR-safe isolation (such as Frixione's
+ smooth isolation cut [3]) has any physical meaning at NLO.
+ (I.e, the calculation with the IR-safe isolation cut does
+ not depend on the subtraction prescription and does not get any
+ contribution from photon fragmentation processes.)  A 
+complementary program that does contain fragmentation processes 
+in di-photon production is <B>DIPHOX</B> [4].
+</li>
+</ol>
+</P>
+<HR>
+<P>
+
+<ol type="1">
+<li>
+The source code can be obtained here:
+<a href="http://www.pa.msu.edu/~schmidt/gamma2MC/gamma2MC_1.1.1/info/gamma2MC_1.1.1.tar.gz">gamma2MC_1.1.1.tar.gz</a> .
+</li>
+<li>
+Click here for the
+<a href="installation.html">installation guide</a> .
+</li>
+<li>
+Click here for the 
+<a href="gamma2MC.indat.html">program manual and input-file guide</a> .
+</li>
+<li>
+This <a href="gamma2MC.html">introductory page</a>, as well as the <a href="installation.html">installation guide</a> and <a href="gamma2MC.indat.html">program manual/input-file guide</a>, is also included in the source code distribution.
+</li>
+<li>
+The program uses the LHAPDF (Les Houches Accord PDF) interface to access various
+up-to-date parton distribution function sets.  More information on downloading
+the LHAPDF libraries and the various PDF sets can be found at 
+<a href="http://hepforge.cedar.ac.uk/lhapdf/">http://hepforge.cedar.ac.uk/lhapdf/</a>.
+</li>
+<li>
+Please send questions or comments to
+<A HREF="mailto:schmidt@pa.msu.edu">schmidt@pa.msu.edu</A>
+</li>
+</ol>
+</P>
+
+<HR>
+<P>
+Versions:
+<ol type="1">
+<li>
+<a href="http://www.pa.msu.edu/~schmidt/gamma2MC/gamma2MC_1.1.1/info/gamma2MC.html">gamma2MC_1.1.1</a>:   Increased compiler optimization to cure instabilities at very high statistics. (Current version) 
+</li>
+<li>
+<a href="http://www.pa.msu.edu/~schmidt/gamma2MC/gamma2MC_1.1/info/gamma2MC.html">gamma2MC_1.1</a>:   Updated to use LHAPDFs.
+</li>
+<li>
+<a href="http://www.pa.msu.edu/~schmidt/gamma2MC/gamma2MC_1.0beta/gamma2MC.html">gamma2MC_1.0(beta)</a>
+</li>
+</ol>
+</P>
+
+<HR>
+
+<H3>
+References:
+</H3>
+<ol type="1">
+<li>
+<P>Z. Bern, L. Dixon, and  C. Schmidt,
+<I>Phys. Rev.</I> <B>D66</B> (2002) 074018.
+</P>
+</li>
+<li>
+<P>A. Djouadi, J. Kalinowski and M. Spira
+<I>Comput. Phys. Commun.</I> <B>108</B> (1998) 56.
+</P>
+</li>
+<li>
+<P>S. Frixione,
+<I>Phys. Lett.</I> <B>B429</B> (1998) 369.
+</P>
+</li>
+<li>
+<P>T. Binoth, J.P. Guillet, E. Pilon and M. Werlen,
+<I>Eur. Phys. J.</I> <B>C16</B> (2000) 311.
+</P>
+</li>
+</ol>
+<hr>
+</BODY>
+</HTML>
+
+
+
+

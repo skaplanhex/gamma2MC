@@ -1,0 +1,437 @@
+<HTML>
+<HEAD>
+
+<TITLE>gamma2MC version 1.1.1 Program Manual</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FDF5E6">
+
+<H2>Program Manual and input-file guide for <font color="green">gamma2MC version 1.1.1</font></H2>
+
+<P>
+This manual describes how to use the NLO di-photon production cross section
+program <font color="green"><B>gamma2MC</B></font>, by giving 
+line-by-line instructions for the input file 
+<font color="blue">"gamma2MC.indat"</font>.
+</P>
+<hr>
+
+<H3>General Formatting Notes:</H3>
+
+<P>It should be fairly easy to use the input file, 
+<font color="blue">"gamma2MC.indat"</font>, just by modifying the example 
+that came with the source distribution.  However, there are a few
+general formatting requirements to be aware of.
+<BR>
+The input file must have exactly 19 lines.  Although some lines are ignored
+for certain choices of processes or cuts, the line must still be there in
+order for the program to function properly. <BR> 
+In the following explanations
+of the inputs, a list <B>{a, b, c}</B> indicates a choice of string inputs
+on a line, while an ordered list <B>[x y z]</B> indicates multiple numerical 
+parameters input on a single line. Possible inputs are colored
+<font color="red"><B>red</B></font>.<BR> If the input to a line
+is a string, then it MUST have trailing white spaces after the string 
+(NOT TABS!). It is easiest to do this by keeping the explanatory 
+comment after the input string (i.e, white spaces followed by #x Comment)
+from the example file.
+<BR>
+Any input which is a string must be spelled exactly as given below,
+including capitalization and without quotation marks, or else the program will 
+complain.  
+<BR>
+The program ignores anything in a line that comes after the expected input.
+</P>
+<hr>
+
+<H3>
+Line-by-line explanation of input file:</H3>
+
+<dl>
+<dt><B>#1 Name of the output file.</B></dt>
+<dd>
+Any file name will do, such as <font color="red"><B>output/gamma2MC_MGG.out</B></font>
+(without quotes).  
+There is an empty directory "output/" in the same directory as the executable, which may be used for output files. Or you may organize as you desire.
+</dd>
+<dt><B>#2 Type of collider.</B></dt>  
+<dd>
+Choose from {<font color="red"><B>pp</B></font>, <font color="red"><B>ppbar</B></font>}.
+</dd>
+<dt><B>#3 Collider COM energy</B></dt 
+<dd>Input in GeV, such as <font color="red"><B>14000.0</B></font></dd>
+
+<dt><B>#4 PDF file name.</B></dt>
+<dd>
+The file name (such as <font color="red"><B>cteq6m.LHpdf</B></font>) for the particular PDF distribution
+to be used.  The LHAPDF script "lhapdf-config" determines the correct path
+to the file, so make sure that the script is in the system $PATH.
+
+</dd>
+
+<dt><B>#5 PDF member set.</B></dt>  
+<dd>
+This is an integer, which specifies the specific member set for the given 
+PDF distribution.  The default of <font color="red"><B>0</B></font> gives the "best fit" for any distribution.  For more info, read the LHAPDF manual at
+<a href="http://projects.hepforge.org/lhapdf/">http://projects.hepforge.org/lhapdf/</a>.
+</dd>
+<dt><B>#6 Process type.</B></dt
+<dd>  Choose from {<font color="red"><B>HIGGS</B></font>, <font color="red"><B>GG</B></font>, <font color="red"><B>QQ</B></font>}. <BR>
+You may calculate the contribution to p p(bar) --> gamma gamma X at LO and 
+NLO from three distinct subprocesses:<BR>
+
+<table>
+<tr valign=baseline>
+<td><font color="red"><B>HIGGS</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>
+  Through the Higgs resonance: <B>g g --> H X, followed by
+   H --> gamma gamma</B>.  The production cross section of the
+   Higgs boson is through gluon-gluon fusion (with all associated
+   channels at NLO) in the heavy top quark limit (top
+   quark mass dependence is included only in the LO prefactor).  The
+   branching ratio to gamma gamma is not included.  It
+   can be obtained elsewhere, such as from the program <B>HDECAY</B>.</td></tr>
+
+<tr valign=baseline>
+<td><font color="red"><B>GG</B></font> : </td><td>	
+Through the (formally NNLO) process <B>g g --> gamma gamma X</B>, which
+  occurs at one loop.  This box contribution is then treated
+  as the LO part of a NLO calculation, where only
+  gluon-gluon initial-states are considered.</td></tr>
+
+<tr valign=baseline>
+<td><font color="red"><B>QQ</B></font> : </td><td>
+Through <B>q qbar --> gamma gamma X </B>, as well as all associated
+ channels through NLO.  This process at NLO has a collinear
+ singularity when the photon and a final-state quark are
+ collinear.  This singularity has been MSbar-subtracted, so
+ that the calculation should be finite for any isolation cuts.
+ However, no fragmentation processes are included, so only a
+ calculation with an IR-safe isolation (such as Frixione's
+ smooth isolation cut) has any physical meaning at NLO.
+ (I.e, the calculation with the IR-safe isolation cut does
+ not depend on the subtraction prescription and does not get any
+ contribution from photon fragmentation processes.)</td></tr>
+</table>
+</dd>
+<dt><B>#7 QQ subprocess contribution.</B></dt>
+<dd>  Choose from {<font color="red"><B>QQTOTAL,</B></font> <font color="red"><B>QQONLY</B></font>, <font color="red"><B>QGONLY</B></font>}.
+<BR>
+		If the Process type is not <B>QQ</B>, then this line is ignored 
+		(ALTHOUGH IT STILL MUST BE HERE!).<BR>  
+		If the Process type is <B>QQ</B>, then:<BR>
+<table>
+	
+<tr valign=baseline>
+<td>	<font color="red"><B>QQTOTAL</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>Include both quark-antiquark and quark-gluon initiated
+		contributions at LO or NLO.</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>QQONLY</B></font> : </td><td>Include only the quark-antiquark initiated contributions at
+		LO or NLO.  Note that these contributions have no collinear
+		singularity with the final-state photons.</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>QGONLY</B></font> : </td><td>Include only the quark-gluon and antiquark-gluon initated
+		contributions.  These only occur at NLO.  They contain
+		collinear contributions with the final-state photons,
+		which have been MSbar-subtracted.</td></tr>
+</table>
+<dt><B>#8 Order of the calculation.</B></dt>
+<dd> Choices are {<font color="red"><B>LO</B></font>, <font color="red"><B>NLO</B></font>, <font color="red"><B>EASYNLO</B></font>, <font color="red"><B>HARDNLO</B></font>}.
+<BR>	<font color="red"><B>LO</B></font> and 
+<font color="red"><B>NLO</B></font> are self-explanatory.  (To be precise, 
+<font color="red"><B>NLO</B></font> computes the sum
+of LO + NLO c</B></font>orrections.)  <font color="red"><B>EASYNLO</B></font> 
+and <font color="red"><B>HARDNLO</B></font> each compute part of
+the full NLO calculation, and were separated out for diagnostics.
+(They sum to the full NLO cross section.)  <font color="red"><B>HARDNLO</B></font> computes the NLO piece with real gluon emission, minus subtraction terms.  
+<font color="red"><B>EASYNLO</B></font> computes the
+LO + the remaining NLO corrections, which have LO kinematics.  
+Of course, <font color="red"><B>HARDNLO</B></font> and <font color="red"><B>EASYNLO </B></font>are unphysical and are not needed by 
+	most users of the code.  (<font color="red"><B>HARDNLO</B></font> may be useful for computations in 
+	which a visible hard jet is required.)
+</dd>
+<hr>
+
+<B>
+Lines #9, #10, #11 are used for implementing cuts on the events.  The 
+explanation of these three lines follows.  More information about the cuts
+can be found in the file <font color="blue">"Cuts.h"</font>.
+</B>
+<dt><B>#9 Cut type. </B></dt>
+<dd>Choose from {<font color="red"><B>none</B></font>, <font color="red"><B>standard</B></font>, <font color="red"><B>ptcut</B></font>, <font color="red"><B>hcut</B></font>, <font color="red"><B>frixione</B></font>, 
+<font color="red"><B>noIsolation</B></font>, 
+	<font color="red"><B>jetveto</B></font>, <font color="red"><B>annulus</B></font>, <font color="red"><B>D0</B></font>, <font color="red"><B>userdefined</B></font>}. <BR>
+ All choices have minimal
+	pt and rapidity cuts on the photons <B>(input in line #10)</B>, except 
+	for {<font color="red"><B>none</B></font>, <font color="red"><B>hcut</B></font>}.   The remaining 
+variables for each type of cut 
+	are input <B>in line #11</B>.  Detailed descriptions are:<BR>
+
+<table>
+<tr valign=baseline>
+<td>	<font color="red"><B>none</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>As the name implies, no cuts are performed.</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>hcut</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>	The two-photons are reconstructed into a single particle, and
+		a cut is performed on the rapidity yh of this particle.
+		The event is cut if |yh|> <B>yhcut</B>.  This is useful for 
+		calculations of Higgs production, without regard to the 
+		Higgs decay.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>noIsolation</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts only.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>standard</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus the following isolation cut.  
+		The event is cut if the amount of transverse hadronic 
+		energy in a cone of radius <B>Rcut</B> around
+		either photon is greater than <B>Etcut</B>.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>frixione</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus the following smooth isolation
+		cut, suggested by Frixione.  The event is cut if the
+		amount of transverse hadronic energy in ANY cone of radius
+		r<<B>Rcut</B> around either photon is greater than 
+		[pt_gamma*<B>epsilon</B>*(1-cos(r))/(1-cos(<B>Rcut</B>))].  
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>D0</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus the following isolation cut, used by 
+		the D0 collaboration.  The event is cut if the amount of 
+		transverse hadronic energy in a cone of radius <B>Rcut</B> 
+		around either photon is greater than [<B>epsilon</B>*pt_gamma].
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>ptcut</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus <font color="red"><B>standard</B></font> isolation cuts plus
+		an observed jet cut.  The event is cut if the jet
+		does not have transverse energy greater than <B>Etjet</B>.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>jetveto</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus <font color="red"><B>standard</B></font> isolation cuts plus
+		an additional cut on jets in a larger cone around the
+		photon.  The event is cut if there is a jet with transverse
+		energy greater than <B>Etjet</B> within a cone of radius <B>Rjet</B> around
+		either photon.  It is assumed that <B>Etjet</B>><B>Etcut</B> and <B>Rjet</B>><B>Rcut</B>.
+		Since at NLO, there is at most one colored parton in the 
+		final-state, there can be no dependence on the jet cone size
+		in this calculation.  (This would have to be corrected at
+		NNLO and beyond.)
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>annulus</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus <font color="red"><B>standard</B></font> isolation cuts plus a 
+		cut to include at least one jet in an annulus around either 
+		photon.  The event is cut if there is no jet with transverse 
+		energy greater than <B>Etjet</B> in an annulus of inner radius <B>Rcut</B> 
+		and outer radius <B>Rjet</B> around either photon.  Note that if we 
+		remove the events passing the <font color="red"><B>annulus</B></font> cut from those passing 
+		the <font color="red"><B>standard</B></font> cut, this is equivalent to applying the <font color="red"><B>jetveto</B></font> 
+		cut.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>userdefined</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Minimal photon cuts plus user-defined isolation cuts.
+		The user can define a new set of isolation (or other) cuts
+		by modifying the class function 
+		"cutUser::cutIsolation(p1,p2,p3)" in the file <font color="blue"><B>"Cuts.C"</B></font>.  In
+		this function p1 and p2 are the final-state photon 
+		four-vectors, while p3 is the final-state (colored) parton 
+		four-vector.  Note that this set of cuts is always in addition 
+		to the minimal photon cuts.  The new isolation cuts can depend 
+		on up to four variables (input in line #11), which are 
+		"cutUser::<B>P1</B>", "cutUser::<B>P2</B>", "cutUser::<B>P3</B>", and "cutUser::<B>P4</B>".
+		(See the class definition in file <font color="blue"><B>"Cuts.h"</B></font>.) After modifying 
+		the class function, the program must be recompiled by typing 
+		<B>"make gamma2MC"</B> on the command line.  
+(If this class function 
+		is not modified, then this set of cuts is the same as the 
+		<font color="red"><B>standard</B></font> isolation cuts by default.)
+</td></tr>
+</table>
+</dd>
+<dt><B>#10 Input parameters for minimal photon cuts.</B></dt>
+<dd> Numerical input in format <B>[ycut pt2 pt1]</B>, where <B>pt1</B> is 
+		greater than or equal to <B>pt2</B>.  For example, the input
+could be <font color="red"><B>2.5&nbsp;25.0&nbsp;40.0</B></font><BR>
+Note that this line is 
+		ignored if the Cut type is {<font color="red"><B>none</B></font>, <font color="red"><B>hcut</B></font>}.<BR>  The cuts are:<BR>
+<table>	
+<tr valign=baseline>
+<td>	<B>ycut</B>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Require |y_gam|<<B>ycut</B> for each photon.
+</td></tr>
+<tr valign=baseline>
+<td>	<B>pt2</B>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Require smaller photon pt satisfy pt><B>pt2</B> (in GeV).
+</td></tr>
+<tr valign=baseline>
+<td>	<B>pt1</B>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Require larger photon pt satisfy pt><B>pt1</B> (in GeV).
+</td></tr>
+</table
+</dd>
+<dt><B>#11 Input parameters for isolation or other cuts.</B></dt>
+<dd>  The input here depends on 
+the specific type of cut, with details given above.<BR>
+<table>
+<tr valign=baseline>
+<td>	<font color="red"><B>none</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>Line is ignored.</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>hcut</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td>	<B>[yhcut]</B>.  For example, <font color="red"><B>2.5</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>noIsolation</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	Line is ignored.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>standard</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut Etcut]</B> with <B>Etcut</B> in GeV.  For example, 
+<font color="red"><B>0.4&nbsp;15.0</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>frixione</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut epsilon]</B>.  For example, 
+<font color="red"><B>1.0&nbsp;1.0</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>D0</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut epsilon]</B>.  For example, 
+<font color="red"><B>0.4&nbsp;0.07</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>ptcut</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut Etcut Etjet]</B> with <B>Etcut</B>, <B>Etjet</B> in GeV.  
+For example, 
+<font color="red"><B>0.4&nbsp;15.0&nbsp;30.0</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>jetveto</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut Etcut Rjet Etjet]</B> with <B>Etcut</B>, <B>Etjet</B> in GeV.  
+For example, 
+<font color="red"><B>0.4&nbsp;5.0&nbsp;2.0&nbsp;15.0</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>annulus</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[Rcut Etcut Rjet Etjet]</B> with <B>Etcut</B>, <B>Etjet</B> in GeV.  
+For example, 
+<font color="red"><B>0.4&nbsp;5.0&nbsp;2.0&nbsp;15.0</B></font>
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>userdefined</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td>
+<td>	<B>[P1 P2 P3 P4]</B> as defined by user. 
+For example,
+<font color="red"><B>1.0&nbsp;2.0&nbsp;3.0&nbsp;4.0</B></font>
+</td></tr>
+</table>
+</dd>
+<hr>
+
+<dt><B>#12 Range in M_gamgam</B></dt>
+<dd>If the process is <font color="red"><B>HIGGS</B></font>, 
+then input <B>[M_Higgs]</B> in GeV. For example, <font color="red"><B>120.0</B></font> <BR>
+Otherwise, input the range in M_gamgam:  <B>[M_gamgam(low) M_gamgam(high)]</B> in GeV. For example, <font color="red"><B>80.0&nbsp;140.0</B></font> 
+</dd>
+<dt><B>#13 Input scale choices.</B></dt>
+<dd> The input format is <B>[chiR chiF chifr]</B>. For example, <font color="red"><B>0.5&nbsp;0.5&nbsp;0.5</B></font><BR>
+ The scale factors are defined by:<BR>
+<table>
+<tr valign=baseline>
+<td>Renormalization&nbsp;:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  </td><td>mu_R=<B>chiR</B>*M_gamgam. </td></tr>
+<td>	Factorization :  </td><td>  mu_F=<B>chiF</B>*M_gamgam.</td></tr
+<td>	fragmentation :  </td><td>  mu_fr=<B>chifr</B>*M_gamgam.</td></tr
+</table>
+</dd>
+<dt><B>#14 Input Vegas Grid variables </B></dt>
+<dd>
+The input format is <B>[itmx ncallAdapt]</B>,
+where <B>itmx</B> is the number of iterations, and <B>ncallAdapt</B> 
+is the number of function calls per iteration, used to build the Vegas Grid.
+Both are integers.  For example, <font color="red"><B>5&nbsp;50000</B></font> 
+</dd>
+<dt><B>#15 Input integer number of events</B></dt>
+<dd> Input is a single integer, the number of events 
+called after the Vegas Grid is set up. For example, 
+<font color="red"><B>1000000</B></font> 
+</dd>
+<dt><B>#16 Input seed</B></dt>
+<dd>
+Input is the seed for the random number generator, which must be a 
+negative number (<0).
+For example, 
+<font color="red"><B>-328</B></font> 
+</dd>
+<hr>
+<B>
+Lines #17, #18, #19 are used for producing histograms of different event
+distributions.  Currently, the code only can produce one histogram per run.
+I hope to allow for multiple histograms in the final program version.
+More information about the Distribution class can be found in the file 
+<font color="blue">"Distribution.h"</font>.
+</B>
+
+<dt><B>#17 Distribution type.</B></dt>
+<dd> Choose from {<font color="red"><B>COSTHETASTAR</B></font>, <font color="red"><B>YSTAR</B></font>, <font color="red"><B>TANHYSTAR</B></font>, <font color="red"><B>YGG</B></font>, <font color="red"><B>PHIGG</B></font>,
+	 <font color="red"><B>QT</B></font>, <font color="red"><B>MGG</B></font>, <font color="red"><B>USERDEFINED</B></font>}. <BR>
+The distribution variables are:
+
+<table>
+<tr valign=baseline>
+<td>	<font color="red"><B>COSTHETASTAR</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> Center-of-mass scattering angle of the photons.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>YSTAR</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> y^star = |y_gam1 - y_gam2|
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>TANHYSTAR</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> tanh(y^star)
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>YGG</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> Let q = p_gam1 + p_gam2.  Then y_gg = rapidity of q.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>PHIGG</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> phi_gg = |phi_gam1 - phi_gam2| (defined in interval [0,PI]).
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>QT</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> Let q = p_gam1 + p_gam2.  Then q_T = transverse momentum of q.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>MGG</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> Let q = p_gam1 + p_gam2.  Then M_gamgam= invariant mass of q.
+</td></tr>
+<tr valign=baseline>
+<td>	<font color="red"><B>USERDEFINED</B></font>&nbsp;:&nbsp;&nbsp&nbsp;&nbsp; </td><td> The user can define a new distribution to histogram
+		by modifying the class function "distUser::Param(p1,p2)" 
+		in the file <font color="blue"><B>"Distribution.C"</B></font>.
+  In this function p1 and p2 
+		are the final-state photon four-vectors.  (See the class 
+		definition in file <font color="blue"><B>"Distribution.h"</B></font> for information.) 
+		After modifying the class function, the program must be 
+		recompiled by typing <B>"make gamma2MC"</B> on the command 
+line.  		(If this class function is not modified, then this 
+		distribution is the same as <font color="red"><B>MGG</B></font> by default.)
+</td></tr>
+	
+</table>
+</dd>
+<dt><B>#18 Input binning parameters</B></dt>
+<dd> Input the binning parameters <B>[nbins hmin hmax] = 
+[Number of Bins, Lower limit of bins, Upper limit of Bins]</B>.  <BR>
+For example, for a <font color="red"><B>MGG</B></font> distribution
+	with <font color="red"><B>15&nbsp;80.0&nbsp;140.0</B></font>
+ as input, the program would produce a histogram
+	in M_gamgam with 15 bins of 4.0 GeV each, running from 80.0 to 140.0 
+	GeV.<BR>
+Warning:  The LO and virtual contributions produce events at exactly q_T=0
+and phi_gg=PI.  Therefore, the lower and upper limits for these two distributions, respectively, should includes these two points.  For example, for the <font color="red"><B>QT</B></font> distribution, let <B>hmin</B> be <font color="red"><B>-1.0e-8</B></font> (less than 0), and for the <font color="red"><B>PHIGG</B></font> distribution, let <B>hmax</B> be <font color="red"><B>3.1416</B></font> (greater than PI).
+</dd>
+<dt><B>#19 Should histogram be scaled to total cross section?</B></dt> 
+<dd>Choose from
+	{<font color="red"><B>scaled</B></font>, <font color="red"><B>unscaled</B></font>}.  If <font color="red"><B>scaled</B></font>, the distribution is divided by the 
+	cross section.
+</dd>
+</dl>
+<hr>
+</P>
+</BODY>
+</HTML>
+

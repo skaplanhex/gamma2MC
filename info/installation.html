@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+
+<TITLE>gamma2MC version 1.1.1 Installation</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FDF5E6">
+
+<H2>Installation guide to <font color="green">gamma2MC version 1.1.1</font></H2>
+
+
+<P>
+The program <font color="green"><B>gamma2MC</B></font> is written in C++.  
+It uses the LHAPDF package, in addition to the standard C++ library.
+It has been tested on RedHat Linux 
+(kernel release 2.6.9-55.ELsmp), and compiled with the 
+g++ and f77 compilers (version 3.4.6).<BR>
+</P>
+
+<P>
+Before you can install <font color="green"><B>gamma2MC</B></font>,
+you will need a working installation of the LHAPDF package.  It can be 
+downloaded from <a href="http://projects.hepforge.org/lhapdf/">http://projects.hepforge.org/lhapdf/</a>.  Make sure that the path to its executables (in
+particular lhapdf-config) is in the system $PATH.<BR>
+</P>
+
+<P>
+To install the program <font color="green"><B>gamma2MC</B></font>: 
+
+<ol type="1">
+<li>Download the source file 
+<a href="gamma2MC_1.1.1.tar.gz">gamma2MC_1.1.1.tar.gz</a>. Unpack it 
+by typing on the command line:<BR>
+<B>gunzip gamma2MC_1.1.1.tar.gz<BR>
+tar -xvf gamma2MC_1.1.1.tar</B>
+
+</li>
+<li> Now change directories by typing<BR>
+<B>
+cd gamma2MC_1.1.1
+</B><BR>
+There are four directories here: "bin", "Cincludes", "info", and "src",
+as well as a Makefile. Just type on the command line<BR>
+<B>
+make install
+</B><BR>
+This compiles the utility subroutines in the directory "Cincludes" and
+the main subroutines in "src", which are linked to create the
+executable "gamma2MC", which is put in the directory "bin".<BR>
+
+You're done with the installation!
+</li>
+<li>
+To run the program, change directories by typing<BR>
+<B>
+cd bin
+</B><BR>
+and modify the input file "gamma2MC.indat"
+as desired. Then type on the command line<BR>
+
+<B>
+gamma2MC
+</B><BR>
+Thats all!
+</li>
+</ol>
+<B>
+I highly recommend reading the 
+<a href="gamma2MC.indat.html">program manual and input-file guide</a>  for information on the inputs in the file "gamma2MC.indat".
+</B><BR>
+To go back to the introductory page for the program, click 
+<a href="gamma2MC.html">here</a> .<BR>
+This <a href="installation.html">installation guide</a>, as well as 
+the <a href="gamma2MC.indat.html">program manual/input-file guide</a>
+and <a href="gamma2MC.html">introductory page</a>, is also included in the 
+source code distribution in the directory "info".<BR>
+Please send questions or comments to
+<A HREF="mailto:schmidt@pa.msu.edu">schmidt@pa.msu.edu</A><BR>
+Have fun!
+</P>
+<hr>
+</BODY>
+</HTML>
+
