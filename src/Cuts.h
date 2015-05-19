@@ -59,19 +59,31 @@ class cutHiggs : public Cuts {
 
 class cutPhoton : public Cuts {
  protected:
-  double ycut, ptcut2, ptcut1;  
+  // double ycut, ptcut2, ptcut1;
+  double y1absmin, y1absmax, y2absmin, y2absmax, ptcut2, ptcut1;  
 
   virtual int cutIsolation(particle p1, particle p2, particle p3);
 
  public:
 
-  cutPhoton(void) {ycut=2.5; ptcut2=25.0; ptcut1=40.0;}
+  // cutPhoton(void) {ycut=2.5; ptcut2=25.0; ptcut1=40.0;}
+  cutPhoton(void) {y1absmin=0.; y1absmax=1.4442; y2absmin=0.; y2absmax=1.4442; ptcut2=25.0; ptcut1=40.0;}
 
   virtual ~cutPhoton(void) {}
 
-  void setPhotonCuts(double y, double p2, double p1) {
-                         ycut=y; ptcut2=p2; ptcut1=p1;}
+  // void setPhotonCuts(double y, double p2, double p1) {
+                         // ycut=y; ptcut2=p2; ptcut1=p1;}
+  void setPhotonCuts(double y1min, double y1max, double y2min, double y2max, double p2, double p1){
+    y1absmin = y1min;
+    y1absmax = y1max;
+    y2absmin = y2min;
+    y2absmax = y2max;
+    ptcut2 = p2;
+    ptcut1 = p1;
+  }
 
+  bool inZoneOne(particle p);
+  bool inZoneTwo(particle p);
   int cut(particle k1, particle k2);
   int cut(particle k1, particle k2, particle p);
   

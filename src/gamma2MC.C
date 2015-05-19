@@ -128,12 +128,14 @@ int main(int argc, char* argv[])
     mc->setCuts(&cn);
     cout<<"No cuts. "<<endl;
   } else if (inputstring=="standard") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, Etcut;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>Etcut;
-    cs.setPhotonCuts(ycut,pt2,pt1);
+    // cs.setPhotonCuts(ycut,pt2,pt1);
+    cs.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cs.setIsolation(Rcut,Etcut);
     mc->setCuts(&cs);
     cout<<"Standard cuts with Standard isolation "<<endl;
@@ -141,12 +143,14 @@ int main(int argc, char* argv[])
         <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
   } else if (inputstring=="ptcut") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, Etcut, ptg;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>Etcut>>ptg;
-    cp.setPhotonCuts(ycut,pt2,pt1);
+    // cp.setPhotonCuts(ycut,pt2,pt1);
+    cp.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cp.setIsolation(Rcut,Etcut);
     cp.setPtCut(ptg);
     mc->setCuts(&cp);
@@ -165,12 +169,14 @@ int main(int argc, char* argv[])
     cout<<"Simple rapidity cut on the gamma-gamma (Higgs) system "<<endl;
     cout<<"|y_gamgam| < "<<yh<<endl;
   } else if (inputstring=="frixione") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, epsilon;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>epsilon;
-    cf.setPhotonCuts(ycut,pt2,pt1);
+    // cf.setPhotonCuts(ycut,pt2,pt1);
+    cf.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cf.setIsolation(Rcut,epsilon);
     mc->setCuts(&cf);
     cout<<"Standard cuts with Frixione isolation "<<endl;
@@ -178,22 +184,26 @@ int main(int argc, char* argv[])
         <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , epsilon = "<<epsilon<<endl;
   } else if (inputstring=="noIsolation") {
-    double ycut, pt2, pt1;
-    infile>>ycut>>pt2>>pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
-    cni.setPhotonCuts(ycut,pt2,pt1);
+    // cni.setPhotonCuts(ycut,pt2,pt1);
+    cni.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     mc->setCuts(&cni);
     cout<<"Standard cuts with no isolation "<<endl;
     cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
         <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
   } else if (inputstring=="jetveto") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, Etcut;
     double Rjet, Etjet;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>Etcut>>Rjet>>Etjet;
-    cj.setPhotonCuts(ycut,pt2,pt1);
+    // cj.setPhotonCuts(ycut,pt2,pt1);
+    cj.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cj.setIsolation(Rcut,Etcut);
     cj.setJetVeto(Rjet, Etjet);
     mc->setCuts(&cj);
@@ -204,13 +214,15 @@ int main(int argc, char* argv[])
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
     cout<<"Jet Veto Cut: Rj = "<<Rjet<<" , Etj = "<<Etjet<<" GeV "<<endl;
  } else if (inputstring=="annulus") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, Etcut;
     double Rjet, Etjet;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>Etcut>>Rjet>>Etjet;
-    ca.setPhotonCuts(ycut,pt2,pt1);
+    // ca.setPhotonCuts(ycut,pt2,pt1);
+    ca.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     ca.setIsolation(Rcut,Etcut);
     ca.setJetVeto(Rjet, Etjet);
     mc->setCuts(&ca);
@@ -221,12 +233,14 @@ int main(int argc, char* argv[])
     cout<<"Jet Annulus: R1 = "<<Rcut<<" , R2 = "<<Rjet<<endl;
     cout<<"Minimum jet energy: Etj = "<<Etjet<<" GeV "<<endl;
  } else if (inputstring=="D0") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, epsilon;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>Rcut>>epsilon;
-    cd.setPhotonCuts(ycut,pt2,pt1);
+    // cd.setPhotonCuts(ycut,pt2,pt1);
+    cd.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cd.setIsolation(Rcut,epsilon);
     mc->setCuts(&cd);
     cout<<"Standard cuts with D0 isolation "<<endl;
@@ -234,12 +248,14 @@ int main(int argc, char* argv[])
         <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , epsilon = "<<epsilon<<endl;
  } else if (inputstring=="userdefined") {
-    double ycut, pt2, pt1;
+    double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double P1, P2, P3, P4;
-    infile>>ycut>>pt2>>pt1;
+    // infile>>ycut>>pt2>>pt1;
+    infile>>y1absmin>>y1absmax>>y2absmin>>y2absmax>>pt2>>pt1;
     infile.ignore(1024,'\n');
     infile>>P1>>P2>>P3>>P4;
-    cu.setPhotonCuts(ycut,pt2,pt1);
+    // cu.setPhotonCuts(ycut,pt2,pt1);
+    cu.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     cu.setIsolation(P1,P2,P3,P4);
     mc->setCuts(&cu);
     cout<<"Standard Cuts with User-defined Isolation "<<endl;

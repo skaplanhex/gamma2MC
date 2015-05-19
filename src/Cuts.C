@@ -11,13 +11,61 @@ int cutNone::cut(particle p1, particle p2, particle p3)
 {
   return 0;
 }
-
+bool cutPhoton::inZoneOne(const particle& p)
+{
+  double y = fabs( p.rapidity() );
+  bool inside = (y > y1absmin) && (y < y1absmax);
+  return inside;
+}
+bool cutPhoton::inZoneTwo(particle p)
+{
+  double y = fabs( p.rapidity() );
+  bool inside = (y > y2absmin) && (y < y2absmax);
+  return inside;
+}
 int cutPhoton::cut(particle p1, particle p2)     
 {  
-  return p1.rapidity()<-ycut||p1.rapidity()>ycut
-                           ||p2.rapidity()<-ycut||p2.rapidity()>ycut
-                           ||p1.pt()<ptcut2||p2.pt()<ptcut2
-                           ||(p1.pt()<ptcut1&&p2.pt()<ptcut1);
+  // return p1.rapidity()<-ycut||p1.rapidity()>ycut
+  //                          ||p2.rapidity()<-ycut||p2.rapidity()>ycut
+  //                          ||p1.pt()<ptcut2||p2.pt()<ptcut2
+  //                          ||(p1.pt()<ptcut1&&p2.pt()<ptcut1);
+
+  // assuming we have access to four cuts: y1absmin, y1absmax, y2absmin, y2absmax
+  // we want y1 to be within y1absmin and y1absmax and for y2 to be within y2absmin and y2absmax
+  bool p1InZoneOne = inZoneOne(p1);
+  bool p1InZoneTwo = inZoneTwo(p1);
+  bool p2InZoneOne = inZoneOne(p2);
+  bool p2InZoneTwo = inZoneTwo(p2);
+
+  // if etaCheck is true, then eta cuts are satisfied
+  bool etaCheck = ( p1InZoneOne && p2InZoneTwo ) || ( p1InZoneTwo || p2InZoneOne );
+
+  // figure out which particle has the highest pt
+  double pt1 = p1.pt();
+  double pt2 = p2.pt();
+
+  double lowpt,highpt;
+  if (pt1 < pt2){
+    lowpt = pt1;
+    highpt = pt2;
+  }
+  else if (pt2 < pt1){
+    lowpt = pt2;
+    highpt = pt1;
+  }
+  else {
+    lowpt = pt2;
+    highpt = lowpt;
+  }
+  bool ptCheck = (highpt > ptcut2) && (lowpt > ptcut2) && (highpt > ptcut1);
+
+  // event is good if both pt and eta cuts are satisfied
+  bool eventGood = etaCheck && ptCheck;
+
+  if (eventGood) // don't cut if both eta and pt cuts are met
+    return 0;
+  else // if one of the cuts aren't met
+    return 1;
 }
 
 int cutPhoton::cut(particle p1, particle p2, particle p3)
@@ -43,6 +91,7 @@ int cutPt::cut(particle p1, particle p2)
 
 int cutPt::cut(particle p1, particle p2, particle p3)
 {  
+  double ycut = 1.e10; // a placeholder so the code doesn't break, shouldn't affect anything.
   //  return (cutPhoton::cut(p1,p2,p3)||(p3.pt()<ptgcut));
   return (cutPhoton::cut(p1,p2,p3)||(p3.pt()<ptgcut)||(p3.rapidity()<-ycut)||
       (p3.rapidity()>ycut));
