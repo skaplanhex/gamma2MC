@@ -20,11 +20,15 @@ enum distribution_type { COSTHETASTAR=0, YSTAR=1, TANHYSTAR=2, YGG=3, PHIGG=4, Q
 //enum cut_type {none=0, standard=1, ptcut=2, hcut=3, frixione=4,
 //               noIsolation=5, jetveto=6, annulus=7, D0=8, userdefined=9};
 enum norm_type {scaled, unscaled};	           
-int main()
+int main(int argc, char* argv[])
 {
   gamma2NLO *mc;
-
-  ifstream infile ("gamma2MC.indat");
+  string inString = "";
+  if (argc == 1) inString = "gamma2MC.indat";
+  else if (argc == 2) inString = argv[1];
+  else{cout << "Error! Must either specify 0 or 1 argument (with the argument being the input file)." << endl; return 0;}
+  cout << "Using input file: " << inString << endl;
+  ifstream infile (inString.c_str());
   ofstream outfile;
   streambuf *psbuf, *backup;
   string inputstring;
