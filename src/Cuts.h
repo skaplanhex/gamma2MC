@@ -82,8 +82,8 @@ class cutPhoton : public Cuts {
     ptcut1 = p1;
   }
 
-  bool inZoneOne(particle p);
-  bool inZoneTwo(particle p);
+  bool inZoneOne(const particle& p);
+  bool inZoneTwo(const particle& p);
   int cut(particle k1, particle k2);
   int cut(particle k1, particle k2, particle p);
   

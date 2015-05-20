@@ -7,7 +7,9 @@ AM_CPPFLAGS = $(shell lhapdf-config --cppflags)
 AM_LDFLAGS = $(shell lhapdf-config --ldflags) 
 CFLAGS= -O 
 CFLAGS=
-LIBS=-lm -lstdc++ -lg2c $(AM_LDFLAGS)
+#LIBS=-lm -lstdc++ -lg2c $(AM_LDFLAGS)
+LIBS=-lm -L/afs/cern.ch/sw/lcg/external/gcc/4.7.0/x86_64-slc6-gcc47-opt/lib64 -lstdc++ -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -lg2c $(AM_LDFLAGS)
+
 CCFLAGS= -O -c $(AM_CPPFLAGS)
 #CCFLAGS= -c
 

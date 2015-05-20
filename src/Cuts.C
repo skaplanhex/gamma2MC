@@ -17,7 +17,7 @@ bool cutPhoton::inZoneOne(const particle& p)
   bool inside = (y > y1absmin) && (y < y1absmax);
   return inside;
 }
-bool cutPhoton::inZoneTwo(particle p)
+bool cutPhoton::inZoneTwo(const particle& p)
 {
   double y = fabs( p.rapidity() );
   bool inside = (y > y2absmin) && (y < y2absmax);
