@@ -5,7 +5,8 @@ CPP=g++
 F77=g77
 AM_CPPFLAGS = $(shell lhapdf-config --cppflags) 
 CFLAGS=-O3 -lm
-LIBS=-lm -lstdc++ 
+#LIBS=-lm -lstdc++ 
+LIBS=-lm -L/afs/cern.ch/sw/lcg/external/gcc/4.7.0/x86_64-slc6-gcc47-opt/lib64 -lstdc++ -L/usr/lib/gcc/x86_64-redhat-linux/3.4.6 -lg2c $(AM_LDFLAGS)
 CCFLAGS= -O3 -c $(AM_CPPFLAGS)
 
 .SUFFIXES: .o .C .cpp
