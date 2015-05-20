@@ -139,8 +139,7 @@ int main(int argc, char* argv[])
     cs.setIsolation(Rcut,Etcut);
     mc->setCuts(&cs);
     cout<<"Standard cuts with Standard isolation "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<< endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
   } else if (inputstring=="ptcut") {
     double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
@@ -156,8 +155,7 @@ int main(int argc, char* argv[])
     mc->setCuts(&cp);
     cout<<"Standard cuts with Standard isolation plus observed parton pt cut "
 	<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
     cout<<"Parton Pt Cut: pt_parton > "<<ptg<<" GeV "<<endl;
   } else if (inputstring=="hcut") {
@@ -180,8 +178,7 @@ int main(int argc, char* argv[])
     cf.setIsolation(Rcut,epsilon);
     mc->setCuts(&cf);
     cout<<"Standard cuts with Frixione isolation "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , epsilon = "<<epsilon<<endl;
   } else if (inputstring=="noIsolation") {
     double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
@@ -192,8 +189,7 @@ int main(int argc, char* argv[])
     cni.setPhotonCuts(y1absmin,y1absmax,y2absmin,y2absmax,pt2,pt1);
     mc->setCuts(&cni);
     cout<<"Standard cuts with no isolation "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
   } else if (inputstring=="jetveto") {
     double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
     double Rcut, Etcut;
@@ -209,8 +205,7 @@ int main(int argc, char* argv[])
     mc->setCuts(&cj);
     cout<<"Standard cuts with Standard isolation and Jet Veto "
 	<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
     cout<<"Jet Veto Cut: Rj = "<<Rjet<<" , Etj = "<<Etjet<<" GeV "<<endl;
  } else if (inputstring=="annulus") {
@@ -227,8 +222,7 @@ int main(int argc, char* argv[])
     ca.setJetVeto(Rjet, Etjet);
     mc->setCuts(&ca);
     cout<<"Standard cuts with Standard isolation and an observed jet in annulus around a photon "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , Et = "<<Etcut<<" GeV "<<endl;
     cout<<"Jet Annulus: R1 = "<<Rcut<<" , R2 = "<<Rjet<<endl;
     cout<<"Minimum jet energy: Etj = "<<Etjet<<" GeV "<<endl;
@@ -244,8 +238,7 @@ int main(int argc, char* argv[])
     cd.setIsolation(Rcut,epsilon);
     mc->setCuts(&cd);
     cout<<"Standard cuts with D0 isolation "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cuts: R = "<<Rcut<<" , epsilon = "<<epsilon<<endl;
  } else if (inputstring=="userdefined") {
     double y1absmin, y1absmax, y2absmin, y2absmax, pt2, pt1;
@@ -259,8 +252,7 @@ int main(int argc, char* argv[])
     cu.setIsolation(P1,P2,P3,P4);
     mc->setCuts(&cu);
     cout<<"Standard Cuts with User-defined Isolation "<<endl;
-    cout<<"Photon Cuts: |y_gam| < "<<ycut<<" , pt2 > "<<pt2 
-        <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
+    cout << "Photon Cuts: one photon with " << y1absmin << " < |y_gam| < " << y1absmax << " and the other with " << y2absmin << " < |y_gam| < " << y2absmax << " , pt2 > "<< pt2 <<"GeV, pt1 > "<<pt1<<" GeV"<<endl;
     cout<<"Isolation Cut Parameters: P1 = "<<P1<<" , P2 = "<<P2<<" , P3 = "<<P3<<" , P4 = "<<P4<<endl;
  } else { 
        cerr<<" Invalid Cut Type. "<<endl;
