@@ -7,7 +7,7 @@ GG                 #6 Process type : choices {HIGGS, GG, QQ}
 QQTOTAL            #7 QQ type : choices {QQTOTAL, QQONLY, QGONLY} 
 NLO                #8 Order of calculation : choices {LO, NLO, EASYNLO, HARDNLO}  
 standard           #9 Cut types: choices {none, standard, ptcut, hcut, frixione, noIsolation, jetveto, annulus, D0, userdefined}  
-2.5 25.0 40.0      #10 [ycut pt2 pt1] (remember pt2<pt1)
+0.0 1.4442 1.566 2.5 25.0 40.0    #10 [y1absmin y1absmax y2absmin y2absmax pt2 pt1] (y1absmin and y1absmax define a range in |y| where a photon should be confined.  y2absbin and y2absmax define another range. One photon will inhabit one range, and the other photon will inhabit the other (the ranges could of course be the same).  remember pt2<pt1)
 0.4 15.0           #11 standard [Rcut Etcut], ptcut [Rcut Etcut Etjet], hcut [yhcut], frixione/D0 [Rcut epsilon], jetveto/annulus, [Rcut Etcut Rjet Etjet], userdefined [P1, P2, P3, P4]
 80.0 140.0	   #12 HIGGS [M_Higgs], else [M_gamgam(low) M_gamgam(high)]
 0.5 0.5 0.5        #13 Scale choices [chiR chiF chifr] 
